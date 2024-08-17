@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUESS GAME</title>
+    <style>
+        body{
+            padding-top: 100px;
+        }
+        .contain{
+            height: 350px;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background: black;
+    padding-top: 15px;
+        }
+
+        h1{
+            color: white;
+        }
+
+        p{
+            font-size: 20px;
+            color: white;
+        }
+
+        #result{
+            font-size: 30px;
+    color: red;
+    font-weight: bolder;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="contain">
+        <p>Try and guess a random number betwen 1-100</p>
+        <p>You have 10 attempts to guess the right number.</p>
+        <form action="" class="form">
+            <h1>GUESS A NUMBER</h1>
+            <input type="number" id="userinput">
+            <input type="submit">
+
+        </form>
+        <p >Previous Guesses: <span class="previousguess"></span> </p>
+        <p>Guess Remaining: <span class="remainingguess">10</span> </p>
+        <p id="result"></p>
+    </div>
+</body>
+
+<script>
+
+    
+    let arr=[];
+    let login=true;
+
+    const form=document.querySelector('.form');
+    const result=document.querySelector('#result');
+    const previous=document.querySelector('.previousguess');
+    const Remaining=document.querySelector('.remainingguess');
+
+    form.addEventListener('submit',function(e)
+{
+    e.preventDefault();
+
+    if(login==true)
+{
+    let currentguess=parseInt(document.querySelector('#userinput').value);
+    check(currentguess);
+}
+
+else
+{
+    alert("Game Over Please Refresh page to start again");
+    location.reload();//automatically refreshes the page
+
+}
+
+    
+  
+
+})
+
+
+function check(value)
+{
+    guesses(value);
+    let random=parseInt(Math.random()*100+1);
+    console.log(random);
+
+    if(Remaining.textContent<=0)
+{
+    login=false;
+}
+else{
+
+    if(value<1)
+alert("Please input value greater than 1");
+else if(value>100)
+alert("Please enter value less than 100");
+else{
+    if(value==random)
+{
+    
+    result.textContent="Your Guess is Correct";
+}
+else
+{
+    result.textContent="Wrong Guess";
+}
+
+}
+
+}
+
+
+}
+
+
+function endgame()
+{
+
+}
+
+function guesses(temp)
+{
+
+arr.push(temp);
+
+previous.textContent=`${arr}`;
+Remaining.textContent=`${10-arr.length}`;
+
+}
+    
+</script>
+</html>
